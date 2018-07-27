@@ -53,7 +53,11 @@ public class RealInterceptChain implements Chain {
     public Response proceed(Request request) {
         return proceed(request, streamAllocation, httpCodec, connection);
     }
-
+    /**
+    *  第一次在proceed的时候，相当于传递了interceptors，这个类保存了interceptors的集合。
+    *  interceptor又会调用proceed，非常像是一个递归的过程。
+    *  
+    **/
     public Response proceed(Request request, StreamAllocation streamAllocation,
                             HttpCodec httpCodec, RealConnection connection) {
         RealInterceptChain interceptChain =
